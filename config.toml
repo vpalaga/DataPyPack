@@ -1,6 +1,10 @@
 [output]
-minecraft_worlds_folder = "xxx"
-commands_p_file = 1000
+minecraft_folder = "C:/Users/vit/AppData/Roaming/.minecraft"
+world_name = "New World (6)"
 minecraft_version = "26.1.2"
+
+[datapack]
+commands_p_file = 1000
 datapack_name = "datapypack"
+datapack_description = "simple datapack creator"
 datapack_version = "0.0"
