@@ -1,0 +1,6 @@
+[output]
+minecraft_worlds_folder = "xxx"
+commands_p_file = 1000
+minecraft_version = "26.1.2"
+datapack_name = "datapypack"
+datapack_version = "0.0"
