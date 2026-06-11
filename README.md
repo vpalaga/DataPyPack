@@ -1,2 +1,2 @@
 # DataPyPack
-python module that makes creating minecarft modules easy
+python module that makes creating Minecraft modules easy
