@@ -22,7 +22,13 @@ pack.command("say hello")
 # save as minecraft datapack
 pack.save()
 ````
+than in minecraft:
+```
+/reload
+/function dataPackName:dataPackName
+```
 
+### adding new shit
 you can add your own methods to DataPyPack (please merge with this) 
 just by adding your method into the DataPyPack class by using self._add_command(): 
 
