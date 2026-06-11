@@ -1,7 +1,8 @@
 [output]
 minecraft_folder = "C:/Users/vit/AppData/Roaming/.minecraft"
-world_name = "New World (6)"
-minecraft_version = "26.1.2"
+world_name = "New World (8)"
+# watch out, versions after 1.20 don't work for some reason
+minecraft_version = "1.20"
 
 [datapack]
 commands_p_file = 1000

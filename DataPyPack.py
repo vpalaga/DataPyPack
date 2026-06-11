@@ -25,9 +25,11 @@ class DataPyPypack:
         # internal data section -----------------------
         # world path
         self.worldPath = os.path.join(self.minecraftFolder, "saves", self.worldName)
-        self.commandPath = os.path.join(self.worldPath, "datapacks", self.dataPackName, "data", self.dataPackName, "functions")
+        self.commandHeaderPath = os.path.join(self.worldPath, "datapacks", self.dataPackName, "data", self.dataPackName, "functions")
+        self.commandPath = os.path.join(self.commandHeaderPath, self.dataPackName + "_sub_commands")
+
         self._generate_datapack_files()
-        print(f"filesystem prepared: {self.commandPath}")
+        print(f"filesystem prepared: {self.commandHeaderPath}")
 
         # each list[x] should have commandsPerFile elements
         self.commands:list[list[str]] = [[]]
@@ -50,7 +52,7 @@ class DataPyPypack:
         #check minecraft version
     def _generate_datapack_files(self)->None:
         # Create a new folder inside an existing one
-        Path(os.path.join(self.commandPath, self.dataPackName + "_sub_commands")).mkdir(parents=True, exist_ok=True)
+        Path(self.commandPath).mkdir(parents=True, exist_ok=True)
         # create .mcmeta header file
         headerPath = os.path.join(self.worldPath, "datapacks", self.dataPackName, "pack.mcmeta")
         pack_format = get_pack_format(self.minecraftVersion, "data")
@@ -88,11 +90,25 @@ class DataPyPypack:
         self._add_command(command)
     def set_block(self, pos:tuple[int,int,int], block:str):
         """set_block {pos[0]} {pos[1]} {pos[2]} minecraft:{block}"""
-        command = f"set_block {pos[0]} {pos[1]} {pos[2]} minecraft:{block}"
+        command = f"setblock {pos[0]} {pos[1]} {pos[2]} minecraft:{block}"
         self._add_command(command)
 
     def save(self)->None:
-        pass
+        # create sub_commands
+        for i, commands in enumerate(self.commands):
+            data = "\n".join(commands)
+            name = os.path.join(self.commandPath, f"{self.dataPackName}_{i}.mcfunction")
+
+            with open(name, "w") as f:
+                f.write(data)
+
+        # create the main .mcfunction file
+        data = "\n".join([
+            f"function {self.dataPackName}:{self.dataPackName}_sub_commands/{self.dataPackName}_{i}"
+            for i in range(len(self.commands))])
+        name = os.path.join(self.commandHeaderPath, f"{self.dataPackName}.mcfunction")
+        with open(name, "w") as f:
+            f.write(data)
 
     class Errors:
         class InvalidCommandError(Exception):
@@ -107,3 +123,5 @@ class DataPyPypack:
 
 if __name__ == "__main__":
     d = DataPyPypack()
+    d.set_block((0,0,0), "stone")
+    d.save()
