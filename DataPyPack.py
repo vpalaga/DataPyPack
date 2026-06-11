@@ -65,7 +65,6 @@ class DataPyPypack:
         with open(headerPath, "w") as f:
             json.dump(data, f, indent=2)
 
-
     @staticmethod
     def _check_command_validity(command:str)->bool:
         is_valid = True
@@ -88,11 +87,12 @@ class DataPyPypack:
     # commands
     def command(self, command:str)->None:
         self._add_command(command)
-    def set_block(self, pos:tuple[int,int,int], block:str):
+    def set_block(self, pos:tuple[int,int,int], block:str)->None:
         """set_block {pos[0]} {pos[1]} {pos[2]} minecraft:{block}"""
         command = f"setblock {pos[0]} {pos[1]} {pos[2]} minecraft:{block}"
         self._add_command(command)
 
+    # save
     def save(self)->None:
         # create sub_commands
         for i, commands in enumerate(self.commands):
@@ -124,4 +124,5 @@ class DataPyPypack:
 if __name__ == "__main__":
     d = DataPyPypack()
     d.set_block((0,0,0), "stone")
+
     d.save()
