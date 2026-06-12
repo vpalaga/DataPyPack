@@ -50,12 +50,12 @@ just by adding your method into the DataPyPack class by using self._add_command(
 ### data structure
 creates a datapack with the following data-structure in the world folder
 ````
-datapypack/
+name/
 ├── pack.mcmeta
 └── data/
-    └── datapypack/
+    └── name/
         └── functions/
-            ├── datapackName.mcfunction
+            ├── name.mcfunction
             └── sub_commands/
                 └── name_0.mcfunction
                 └── name_1.mcfunction
