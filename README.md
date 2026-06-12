@@ -57,9 +57,9 @@ datapypack/
         └── functions/
             ├── datapackName.mcfunction
             └── sub_commands/
-                └──name_0.mcfunction
-                └──name_1.mcfunction
-                ...
+                └── name_0.mcfunction
+                └── name_1.mcfunction
+                └── ...
 ````
 
 ## please fix:
