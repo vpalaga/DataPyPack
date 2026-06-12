@@ -47,6 +47,21 @@ just by adding your method into the DataPyPack class by using self._add_command(
     ...
 ````
 
+### data structure
+creates a datapack with the following data-structure in the world folder
+````
+datapypack/
+├── pack.mcmeta
+└── data/
+    └── datapypack/
+        └── functions/
+            ├── datapackName.mcfunction
+            └── sub_commands/
+                └──name_0.mcfunction
+                └──name_1.mcfunction
+                ...
+````
+
 ## please fix:
 + minecraft versions after 1.20 will not deal with the functions correctly I don't know why, and I have spent too much time trying...
 
