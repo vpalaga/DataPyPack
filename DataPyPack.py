@@ -33,7 +33,10 @@ class DataPyPypack:
 
         # each list[x] should have commandsPerFile elements
         self.commands:list[list[str]] = [[]]
-
+    def show_commands(self)->None:
+        for over_command in self.commands:
+            for command in over_command:
+                print(f"{command}")
     def _load_config(self)->dict[str,Any]:
         try:
             with open(self.configPath, "rb") as f:
@@ -92,6 +95,21 @@ class DataPyPypack:
         command = f"setblock {pos[0]} {pos[1]} {pos[2]} minecraft:{block}"
         self._add_command(command)
 
+    def fill(self, pos1:tuple[int,int,int], pos2:tuple[int,int,int], block:str):
+        command = f"fill {pos1[0]} {pos1[1]} {pos1[2]} {pos2[0]} {pos2[1]} {pos2[2]} minecraft:{block}"
+        self._add_command(command)
+
+    def sphere(self, m:tuple[int,int,int], r:int, block:str):
+        def is_inside(_x:int, _y:int, _z:int)->bool:
+            if _x**2 + _y**2 + _z**2 < r**2:
+                return True
+            return False
+        for dx in range(-r,r+1):
+            for dy in range(-r, r + 1):
+                for dz in range(-r, r + 1):
+                    pos = m[0]+dx, m[2]+dy, m[1]+dz
+                    if is_inside(*pos):
+                        self.set_block(pos, block)
     # save
     def save(self)->None:
         # create sub_commands
@@ -123,6 +141,5 @@ class DataPyPypack:
 
 if __name__ == "__main__":
     d = DataPyPypack()
-    d.set_block((0,0,0), "stone")
-
-    d.save()
+    d.sphere((0,0,0), 3, "stone")
+    d.show_commands()
